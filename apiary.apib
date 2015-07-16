@@ -3,19 +3,11 @@ HOST: http://polls.apiblueprint.org/
 
 # SX (v1.0)
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+SX API gives support for SX project within Corbel.
 
-# Polls API Root [/]
+# Organization [/v1.0/resource/sx:Organization]
 
-This resource does not have any attributes. Instead it offers the initial
-API affordances in the form of the links in the JSON body.
-
-It is recommend to follow the “url” link values,
-[Link](https://tools.ietf.org/html/rfc5988) or Location headers where
-applicable to retrieve resources. Instead of constructing your own URLs,
-to keep your client decoupled from implementation details.
-
-## Retrieve the Entry Point [GET]
+## Create Organization [GET]
 
 + Response 200 (application/json)
 
