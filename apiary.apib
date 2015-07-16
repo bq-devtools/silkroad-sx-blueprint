@@ -5,169 +5,127 @@ HOST: http://polls.apiblueprint.org/
 
 SX API gives support for SX project within Corbel.
 
-# Organization [/v1.0/resource/sx:Organization]
+# Organization [/v1.0/resource/sx:Organization/{projectId}]
 
-## Create Organization [GET]
+## Create [PUT]
 
-+ Response 200 (application/json)
-
-        {
-            "questions_url": "/questions"
-        }
-
-## Group Question
-
-Resources related to questions in the API.
-
-## Question [/questions/{question_id}]
-
-A Question object has the following attributes:
-
-+ question
-+ published_at - An ISO8601 date when the question was published.
-+ url
-+ choices - An array of Choice objects.
-
-+ Parameters
-    + question_id: 1 (required, number) - ID of the Question in form of an integer
-
-### View a Questions Detail [GET]
-
-+ Response 200 (application/json)
++ Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "published_at": "2014-11-11T08:40:51.620Z",
-            "url": "/questions/1",
-            "choices": [
+            "name": "Organization Name",
+            "certificates" : [
                 {
-                    "choice": "Swift",
-                    "url": "/questions/1/choices/1",
-                    "votes": 2048
-                }, {
-                    "choice": "Python",
-                    "url": "/questions/1/choices/2",
-                    "votes": 1024
-                }, {
-                    "choice": "Objective-C",
-                    "url": "/questions/1/choices/3",
-                    "votes": 512
-                }, {
-                    "choice": "Ruby",
-                    "url": "/questions/1/choices/4",
-                    "votes": 256
+                    "name": "Name",
+                    "certificate": "certficate",
+                    "key": "key"
                 }
             ]
         }
 
-## Choice [/questions/{question_id}/choices/{choice_id}]
++ Response 204 (application/json)
 
-+ Parameters
-    + question_id: 1 (required, number) - ID of the Question in form of an integer
-    + choice_id: 1 (required, number) - ID of the Choice in form of an integer
+## Delete [DELETE]
 
-### Vote on a Choice [POST]
++ Response 204
 
-This action allows you to vote on a question's choice.
+# Project [/v1.0/resource/sx:Project]
+
+## Create [POST]
+
++ Request (application/json)
+
+        {
+            "name": "name",
+            "organization": "Organization Name",
+            "description": "description",
+            "services": [
+                {
+                    "name": "name",
+                    "type": "type",
+                    "scalable": true,
+                    "version": "v0.01",
+                    "description": "This is a description.",
+                    "group": "group",
+                    "dependencies": ["dependency1", "dependency2"],
+                    "ports": [
+                        {
+                            "port": 65535,
+                            "url": "http://asdklfjasklfjasasjdflkasjree.com",
+                            "certificate": "certificate"
+                        }
+                    ],
+                    "healthchecks": [
+                        {
+                            "path": "/path/to/something",
+                            "protocol": "tcp",
+                            "port": 60000,
+                            "gracePeriod": 5,
+                            "interval": 10,
+                            "timeout": 15,
+                            "maxConsecutiveFailures": 3
+                        }
+                    ]
+                }
+            ]
+        }
 
 + Response 201
 
     + Headers
 
-            Location: /questions/1
+            Location: /v1.0/resource/sx:Project/projectId
 
-## Questions Collection [/questions{?page}]
+## Project [/{projectId}]
 
-+ Parameters
-    + page: 1 (optional, number) - The page of questions to return
-
-### List All Questions [GET]
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Link: </questions?page=2>; rel="next"
-
-    + Body
-
-            [
-                {
-                    "question": "Favourite programming language?",
-                    "published_at": "2014-11-11T08:40:51.620Z",
-                    "url": "/questions/1",
-                    "choices": [
-                        {
-                            "choice": "Swift",
-                            "url": "/questions/1/choices/1",
-                            "votes": 2048
-                        }, {
-                            "choice": "Python",
-                            "url": "/questions/1/choices/2",
-                            "votes": 1024
-                        }, {
-                            "choice": "Objective-C",
-                            "url": "/questions/1/choices/3",
-                            "votes": 512
-                        }, {
-                            "choice": "Ruby",
-                            "url": "/questions/1/choices/4",
-                            "votes": 256
-                        }
-                    ]
-                }
-            ]
-
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ question (string) - The question
-+ choices (array[string]) - A collection of choices.
+### Update [PUT]
 
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "description": "New description."
         }
 
-+ Response 201 (application/json)
++ Response 204
 
-    + Headers
+### Delete [DELETE]
 
-            Location: /questions/2
++ Response 204
 
-    + Body
+# Environment [/v1.0/resource/sx:Environment]
 
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2014-11-11T08:40:51.620Z",
-                "url": "/questions/2",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "url": "/questions/2/choices/1",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "url": "/questions/2/choices/2",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "url": "/questions/2/choices/3",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "url": "/questions/2/choices/4",
-                        "votes": 0
-                    }
-                ]
+## Create [POST]
+
++ Request (application/json)
+
+        {
+            "name": "Environment name",
+            "project": "Project name",
+            "deploySnapshots": true,
+            "ttl": 3,
+            "serviceConfiguration": [
+                {
+                    "service": "service",
+                    "servers": 7,
+                    "ram": 256,
+                    "cpu": 1440
+                }
+            ],
+            "properties": {
+                "property1": "foo",
+                "property2": 5
             }
+        }
+
++ Response 201
+
+## Environment [/{environmentId}]
+
+### Modify [PUT]
+
++ Request (application/json)
+
+        {
+            "deploySnapshots": false
+        }
+
++ Response 204
