@@ -24,6 +24,22 @@ SX API gives support for SX project within Corbel.
 
 + Response 204 (application/json)
 
++ Response 400
+
+        Returned when body entity not present.
+
++ Response 401
+
+        Returned when user doesn't have ADMIN access level in rem-acl.
+
++ Response 404
+
+        Returned when resource is not exist.
+
++ Response 422
+
+        Returned when the entity is malformed.
+
 ## Delete [DELETE]
 
 + Response 204
@@ -75,6 +91,22 @@ SX API gives support for SX project within Corbel.
 
             Location: /v1.0/resource/sx:Project/projectId
 
++ Response 400
+
+        Returned when body entity not present.
+
++ Response 401
+
+        Returned when user doesn't have ADMIN access level in rem-acl.
+
++ Response 404
+
+        Returned when resource is not exist.
+
++ Response 422
+
+        Returned when the entity is malformed.
+
 ## Project [/{projectId}]
 
 ### Update [PUT]
@@ -86,6 +118,22 @@ SX API gives support for SX project within Corbel.
         }
 
 + Response 204
+
++ Response 400
+
+        Returned when body entity not present.
+
++ Response 401
+
+        Returned when user doesn't have ADMIN access level in rem-acl.
+
++ Response 404
+
+        Returned when resource is not exist.
+
++ Response 422
+
+        Returned when the entity is malformed.
 
 ### Delete [DELETE]
 
@@ -117,6 +165,22 @@ SX API gives support for SX project within Corbel.
         }
 
 + Response 201
+
++ Response 400
+
+        Returned when body entity not present.
+
++ Response 401
+
+        Returned when user doesn't have ADMIN access level in rem-acl.
+
++ Response 404
+
+        Returned when resource is not exist.
+
++ Response 422
+
+        Returned when the entity is malformed.
 
 ## Environment [/{environmentId}]
 
